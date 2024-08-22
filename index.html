@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User management app</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+    />
+  </head>
+
+  <body>
+    <aside class="sidebar">
+      <div class="sidebar-items">
+        <div class="item active" data-target="home">
+          <img
+            src="https://raw.githubusercontent.com/parthwebdev/UI-Components/7e774add0ddd88a4fb4057b01ad1f75a3edb4a03/Sidebars/01/svg/home.svg"
+            alt="home"
+          />
+
+          <span>Home</span>
+        </div>
+        <div class="item" data-target="users">
+          <i class="fa fa-regular fa-user"></i>
+          <span>Users</span>
+        </div>
+        <div class="item" data-target="groups">
+          
+          <i class="fa fas fa-users icon"></i>
+
+          <span>Groups</span>
+        </div>
+        <div class="item" data-target="roles">
+          <!-- <img
+            src="https://raw.githubusercontent.com/parthwebdev/UI-Components/7e774add0ddd88a4fb4057b01ad1f75a3edb4a03/Sidebars/01/svg/library.svg"
+            alt="roles"
+          /> -->
+          <i class="fa fa-solid fa-gears"></i>
+          <span>Roles</span>
+        </div>
+      </div>
+    </aside>
+
+    <section>
+      <nav>
+        <div class="menu-btn">
+          <img
+            src="https://raw.githubusercontent.com/parthwebdev/UI-Components/7e774add0ddd88a4fb4057b01ad1f75a3edb4a03/Sidebars/01/svg/menu.svg"
+            alt="menu-icon"
+          />
+        </div>
+        <h3>UserNexus</h3>
+      </nav>
+
+      <section id="home" class="content-section active">
+        <section class="hero-section">
+          <div class="hero-content">
+            <div class="text-content">
+              <div class="app-tag">User Management App</div>
+              <h1>Manage Users, Groups, and Roles with Ease</h1>
+              <p>
+                Simplify user management, organize groups, and assign roles
+                effortlessly. Streamline your workflows.
+              </p>
+              <button class="cta-button">Get Started Now</button>
+            </div>
+            <div class="image-content">
+              <img src="6909.jpg" alt="User Management" class="hero-image" />
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section id="users" class="content-section">
+        <h2>Users</h2>
+        <button id="addUserBtn" class="add-user-button">Add User</button>
+
+        <table id="usersTable" class="users-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Username</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <!-- Separate no-users message -->
+        <div id="noUsersRow" class="no-users">
+          <img src="nousers.png" alt="No Users" />
+          <!-- <p>No users available</p> -->
+        </div>
+
+        <!-- User Modal -->
+        <div id="userModal" class="modal">
+          <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalTitle">Add User</h2>
+            <form id="userForm">
+              <div class="form-group">
+                <input type="text" id="username" required />
+                <label for="username">Username</label>
+              </div>
+              <div class="form-group">
+                <input type="text" id="firstName" required />
+                <label for="firstName">First Name</label>
+              </div>
+              <div class="form-group">
+                <input type="text" id="lastName" required />
+                <label for="lastName">Last Name</label>
+              </div>
+              <div class="form-group">
+                <input type="email" id="email" required />
+                <label for="email">Email</label>
+              </div>
+              <button type="submit" id="saveUserBtn">Save</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section id="groups" class="content-section">
+        <div class="group-management">
+          <!-- Create Group Section -->
+          <div class="create-group">
+            <input
+              type="text"
+              id="groupNameInput"
+              placeholder="Enter group name"
+            />
+            <button id="createGroupBtn">Create Group</button>
+          </div>
+
+          <!-- Groups Table -->
+          <div class="groups-list">
+            <table id="groupsTable">
+              <thead>
+                <tr>
+                  <th>Group Name</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="groupsTableBody">
+                <!-- Group rows will be added here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Add User Modal -->
+        <dialog id="addUserModal">
+          <div class="modal-content-groups">
+            <span class="close-modal">&times;</span>
+            <h3>Add Users to Group</h3>
+            <hr />
+            <table id="addUserTable">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Select</th>
+                </tr>
+              </thead>
+              <tbody id="addUserTableBody">
+                <!-- User rows will be populated here -->
+              </tbody>
+            </table>
+            <button id="saveUsersBtn">Add Users</button>
+          </div>
+        </dialog>
+
+        <!-- View Users Modal -->
+        <dialog id="viewUsersModal">
+          <div class="modal-content-groups">
+            <span class="close-modal">&times;</span>
+            <h3>View Users in Group</h3>
+            <ul id="viewUsersList">
+              <!-- Users will be listed here -->
+            </ul>
+          </div>
+        </dialog>
+
+        <!-- Remove User Modal -->
+        <dialog id="removeUserModal">
+          <div class="modal-content-groups">
+            <span class="close-modal">&times;</span>
+            <h3>Remove Users from Group</h3>
+            <hr />
+            <table id="removeUserTable">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Select</th>
+                </tr>
+              </thead>
+              <tbody id="removeUserTableBody">
+                <!-- User rows will be populated here -->
+              </tbody>
+            </table>
+            <button id="removeUsersBtn">Remove Users</button>
+          </div>
+        </dialog>
+      </section>
+      <section id="roles" class="content-section">
+        <div class="role-management">
+            <!-- Create Role Section -->
+            <div class="create-role">
+                <h2>Create Role</h2>
+                <form id="createRoleForm">
+                    <input type="text" id="roleNameInput" placeholder="Role Name" required>
+                    <textarea id="roleDescriptionInput" placeholder="Role Description" required></textarea>
+                    <button type="submit" id="createRoleBtn" >Create Role</button>
+                </form>
+                <div id="roleSuccessMessage" class="success-message"></div>
+            </div>
+
+            <!-- View Roles Section -->
+            <div class="view-roles">
+                <h2>View Roles</h2>
+              
+                <input type="text" id="searchRolesInput" placeholder="Search Roles">
+<button id="searchRolesBtn">Search</button>
+                <button id="filterRolesBtn">Filter</button>
+                <button id="sortRolesBtn">Sort</button>
+                <table id="rolesTable">
+                    <thead>
+                        <tr>
+                            <th>Role Name</th>
+                            <th>Description</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody id="rolesTableBody">
+                        <!-- Role rows will be added here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Assign Roles to Users Section -->
+            <div class="assign-roles-to-users">
+                <h2>Assign Roles to Users</h2>
+                <form id="assignRolesToUsersForm">
+                    <select id="roleSelectForUser">
+                        <!-- Role options will be populated here -->
+                    </select>
+                    <select id="userSelectForRole" multiple>
+                        <!-- User options will be populated here -->
+                    </select>
+                    <button type="submit" id="assignRolesToUsersBtn">Assign Roles to Users</button>
+                </form>
+                <div id="roleAssignmentSuccessMessage" class="success-message"></div>
+            </div>
+
+            <!-- Assign Roles to Groups Section -->
+            <div class="assign-roles-to-groups">
+                <h2>Assign Roles to Groups</h2>
+                <form id="assignRolesToGroupsForm">
+                    <select id="roleSelectForGroup">
+                        <!-- Role options will be populated here -->
+                    </select>
+                    <select id="groupSelectForRole" multiple>
+                        <!-- Group options will be populated here -->
+                    </select>
+                    <button type="submit" id="assignRolesToGroupsBtn">Assign Roles to Groups</button>
+                </form>
+                <div id="groupAssignmentSuccessMessage" class="success-message"></div>
+            </div>
+
+            <!-- View Role Assignments Section -->
+            <div class="view-role-assignments">
+                <h2>View Role Assignments</h2>
+                <select id="roleSelectForView">
+                    <!-- Role options will be populated here -->
+                </select>
+                <button id="viewRoleAssignmentsBtn">View Assignments</button>
+                <table id="roleAssignmentsTable">
+                    <thead>
+                        <tr>
+                            <th>Entity</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody id="roleAssignmentsTableBody">
+                        <!-- Role assignments will be listed here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+</section>
+    </section>
+    <script src="script.js" defer></script>
+  </body>
+</html>
